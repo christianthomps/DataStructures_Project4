@@ -15,8 +15,8 @@ class TreeType
  public:
   TreeType();                     // constructor
   ~TreeType();                    // destructor
-  TreeType(const TreeType& originalTree); 
-  void operator=(const TreeType& originalTree);
+  TreeType(const TreeType<ItemType>& originalTree); 
+  void operator=(const TreeType<ItemType>& originalTree);
   // copy constructor
   void MakeEmpty();
   bool IsEmpty() const;
