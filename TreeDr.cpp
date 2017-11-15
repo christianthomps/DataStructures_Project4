@@ -26,8 +26,8 @@ int main()
   inFile.open("input.txt");
   outFile.open("output.txt");
 
-  QueType que;
-  TreeType<ItemType> tree;
+  QueType<int> que();
+  TreeType<int> tree();
 
   while(true){
 

@@ -34,8 +34,8 @@ class TreeType
  private:
   ItemType PtrToSuccessor(ItemType*& tree);
   TreeNode<ItemType>* root;
-  QueType preQue;
-  QueType inQue;
-  QueType postQue;
+  QueType<ItemType> preQue;
+  QueType<ItemType> inQue;
+  QueType<ItemType> postQue;
 };
 

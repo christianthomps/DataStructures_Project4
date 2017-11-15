@@ -11,7 +11,7 @@ struct TreeNode
 };
 
 template <class ItemType>
-bool TreeType::IsFull() const
+bool TreeType<ItemType>::IsFull() const
 // Returns true if there is no room for another item 
 //  on the free store; false otherwise.
 {
@@ -29,7 +29,7 @@ bool TreeType::IsFull() const
 }
 
 template <class ItemType>
-bool TreeType::IsEmpty() const
+bool TreeType<ItemType>::IsEmpty() const
 // Returns true if the tree is empty; false otherwise.
 {
   return root == NULL;
@@ -41,7 +41,7 @@ template <class ItemType>
 int CountNodes(TreeNode<ItemType>* tree);
 
 template <class ItemType>
-int TreeType::GetLength() const
+int TreeType<ItemType>::GetLength() const
 // Calls recursive function CountNodes to count the 
 // nodes in the tree.
 {
@@ -62,7 +62,7 @@ template <class ItemType>
 void Retrieve(TreeNode<ItemType>* tree, 
 	      ItemType& item, bool& found);
 
-ItemType TreeType::GetItem(ItemType item, bool& found)
+ItemType TreeType<ItemType>::GetItem(ItemType item, bool& found)
 // Calls recursive function Retrieve to search the tree for item.
 {
   Retrieve(root, item, found);
@@ -94,7 +94,7 @@ template <class ItemType>
 void Insert(TreeNode<ItemType>*& tree, ItemType item);
 
 template <class ItemType>
-void TreeType::PutItem(ItemType item)
+void TreeType<ItemType>::PutItem(ItemType item)
 // Calls recursive function Insert to insert item into tree.
 {
   Insert(root, item);
@@ -123,7 +123,7 @@ template <class ItemType>
 void DeleteNode(TreeNode<ItemType>*& tree);
 
 template <class ItemType>
-void TreeType::DeleteItem(ItemType item)
+void TreeType<ItemType>::DeleteItem(ItemType item)
 // Calls recursive function Delete to delete item from tree.
 {
   bool found = false;
@@ -214,7 +214,7 @@ void PrintTree(TreeNode<ItemType>* tree)
 }
 
 template <class ItemType>
-void TreeType::Print() const
+void TreeType<ItemType>::Print() const
 // Calls recursive function Print to print items in the tree.
 {
   PrintTree(root);
@@ -247,7 +247,7 @@ void Destroy(TreeNode<ItemType>*& tree)
 }
 
 template <class ItemType>
-void TreeType::MakeEmpty()
+void TreeType<ItemType>::MakeEmpty()
 {
   Destroy(root);
   root = NULL;
@@ -258,7 +258,7 @@ void CopyTree(TreeNode<ItemType>*& copy,
 	      const TreeNode<ItemType>* originalTree);
 
 template <class ItemType>
-TreeType::TreeType(const TreeType& originalTree)
+TreeType<ItemType>::TreeType(const TreeType& originalTree)
 // Calls recursive function CopyTree to copy originalTree 
 //  into root.
 {
@@ -266,7 +266,7 @@ TreeType::TreeType(const TreeType& originalTree)
 }
 
 template <class ItemType>
-void TreeType::operator= 
+void TreeType<ItemType>::operator= 
 (const TreeType& originalTree)
 // Calls recursive function CopyTree to copy originalTree 
 // into root.
@@ -337,7 +337,7 @@ void PostOrder(TreeNode<ItemType>*, QueType<ItemType>&);
 
 
 template <class ItemType>
-void TreeType::ResetTree(OrderType order)
+void TreeType<ItemType>::ResetTree(OrderType order)
 // Calls function to create a queue of the tree elements in 
 // the desired order.
 {
@@ -470,14 +470,14 @@ void TreeType<ItemType>::Ancestors(ItemType value){
 }
 
 template <class ItemType>
-TreeType<ItemType> TreeType::MakeTree(ItemType[] arry)
+TreeType<ItemType> TreeType<ItemType>::MakeTree(ItemType[] arry)
 {
   int length = sizeof(arry);
   MakeTreeHelp(0, length, arry);
 }
 
 template <class ItemType>
-TreeNode<ItemType>* TreeType::MakeTreeHelp(int start, int end, ItemType[] arry)
+TreeNode<ItemType>* TreeType<ItemType>::MakeTreeHelp(int start, int end, ItemType[] arry)
 {
   int mid = (start + end)/2;
   TreeNode<ItemType>* ptr = new TreeNode<ItemType>;
@@ -493,7 +493,7 @@ TreeNode<ItemType>* TreeType::MakeTreeHelp(int start, int end, ItemType[] arry)
 TreeType<ItemType> TreeType<ItemType>::MirrorImage();
 
 template <class ItemType>
-ItemType TreeType::GetNextItem(OrderType order, bool& finished)
+ItemType TreeType<ItemType>::GetNextItem(OrderType order, bool& finished)
 // Returns the next item in the desired order.
 // Post: For the desired order, item is the next item in the queue.
 //       If item is the last one in the queue, finished is true; 
