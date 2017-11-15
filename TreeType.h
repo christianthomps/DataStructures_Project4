@@ -1,9 +1,12 @@
 #include <string>
 #include <fstream>
 //typedef int ItemType;
+template <class ItemType>
 struct TreeNode;
 #include "QueType.h"
 enum OrderType {PRE_ORDER, IN_ORDER, POST_ORDER};
+
+template <class ItemType>
 class TreeType
 {
  public:
@@ -21,16 +24,16 @@ class TreeType
   void DeleteItem(ItemType item);
   void ResetTree(OrderType order); 
   ItemType GetNextItem(OrderType order, bool& finished);
-  void PrintTree() const;
+  void PrintTree(TreeNode<ItemType>* tree) const;
   void PreOrderPrint() const;
   void InOrderPrint() const;
   void PostOrderPrint() const;
   void Ancestors(ItemType value) const;
-  TreeType<ItemType> MakeTree(ItemType[] arry);
-  TreeType<ItemType> MirrorImage();
+  TreeType MakeTree(ItemType[] arry);
+  TreeType MirrorImage();
  private:
   ItemType PtrToSuccessor(ItemType*& tree);
-  TreeNode* root;
+  TreeNode<ItemType>* root;
   QueType preQue;
   QueType inQue;
   QueType postQue;
