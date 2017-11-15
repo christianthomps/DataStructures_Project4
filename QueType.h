@@ -6,10 +6,11 @@ class FullQueue
 
 class EmptyQueue
 {};  
-typedef int ItemType; 
 
+template <class ItemType>
 struct NodeType;
 
+template <class ItemType>
 class QueType
 {
  public: 
@@ -21,7 +22,7 @@ class QueType
   // Parameterized class constructor.
   ~QueType();
   // Class destructor.
-  QueType(const QueType& anotherQue);
+  QueType(const QueType<ItemType>& anotherQue);
   // Copy constructor
   void MakeEmpty();
   // Function: Initializes the queue to an empty state.
@@ -44,6 +45,6 @@ class QueType
   //       item is a copy of removed element.
  private:
 
-  NodeType* front;
-  NodeType* rear;
+  NodeType<ItemType>* front;
+  NodeType<ItemType>* rear;
 };

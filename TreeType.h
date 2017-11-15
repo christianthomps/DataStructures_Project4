@@ -1,16 +1,19 @@
 #include <string>
 #include <fstream>
 //typedef int ItemType;
+template <class ItemType>
 struct TreeNode;
 #include "QueType.h"
 enum OrderType {PRE_ORDER, IN_ORDER, POST_ORDER};
+
+template <class ItemType>
 class TreeType
 {
  public:
   TreeType();                     // constructor
   ~TreeType();                    // destructor
-  TreeType(const TreeType& originalTree); 
-  void operator=(const TreeType& originalTree);
+  TreeType(const TreeType<ItemType>& originalTree); 
+  void operator=(const TreeType<ItemType>& originalTree);
   // copy constructor
   void MakeEmpty();
   bool IsEmpty() const;
@@ -30,7 +33,7 @@ class TreeType
   TreeType<ItemType> MirrorImage();
  private:
   ItemType PtrToSuccessor(ItemType*& tree);
-  TreeNode* root;
+  TreeNode<ItemType>* root;
   QueType preQue;
   QueType inQue;
   QueType postQue;

@@ -1,6 +1,8 @@
 #include<iostream>
 using namespace std;
 #include "TreeType.h"
+
+template <class ItemType>
 struct TreeNode
 {
   ItemType info;
@@ -295,6 +297,31 @@ void CopyTree(TreeNode<ItemType>*& copy,
     }
 }
 // Function prototypes for auxiliary functions.
+
+template <class ItemType>
+TreeType<ItemType> TreeType<ItemType>::MirrorImage()
+{
+  TreeType<ItemType> m = new TreeType;
+  Mirror(m, this);
+  return m;
+}
+
+template <class ItemType>
+void Mirror(TreeNode<ItemType>*& mir, 
+	      const TreeNode<ItemType>* originalTree)
+// Post: mir is the root of a tree that is a duplicate 
+//       of originalTree.
+{
+  if (originalTree == NULL)
+    mir = NULL;
+  else
+    {
+      mir = new TreeNode<ItemType>;
+      mir->info = originalTree->info;
+      Mirror(copy->left, originalTree->right);
+      Mirror(copy->right, originalTree->left);
+    }
+}
 
 template <class ItemType>
 void PreOrder(TreeNode<ItemType>*, QueType<ItemType>&);
