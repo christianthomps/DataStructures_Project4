@@ -1,15 +1,18 @@
 // Header file for Queue ADT. 
 #include <new>
 #include <cstddef>
+
 class FullQueue
 {};  
 
 class EmptyQueue
 {};  
-typedef int ItemType; 
-
+//typedef int ItemType; 
+template <class ItemType>
 struct NodeType;
 
+
+template <class ItemType>
 class QueType
 {
  public: 
@@ -44,6 +47,6 @@ class QueType
   //       item is a copy of removed element.
  private:
 
-  NodeType* front;
-  NodeType* rear;
+  NodeType<ItemType>* front;
+  NodeType<ItemType>* rear;
 };
