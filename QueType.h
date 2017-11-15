@@ -1,6 +1,7 @@
 // Header file for Queue ADT. 
 #include <new>
 #include <cstddef>
+
 class FullQueue
 {};  
 

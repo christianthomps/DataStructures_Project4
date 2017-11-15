@@ -1,6 +1,9 @@
 #include <string>
 #include <fstream>
-//typedef int ItemType;
+#include <iostream>
+
+using namespace std;
+
 template <class ItemType>
 struct TreeNode;
 #include "QueType.h"
@@ -24,13 +27,14 @@ class TreeType
   void DeleteItem(ItemType item);
   void ResetTree(OrderType order); 
   ItemType GetNextItem(OrderType order, bool& finished);
-  void PrintTree(TreeNode<ItemType>* tree) const;
-  void PreOrderPrint() const;
-  void InOrderPrint() const;
-  void PostOrderPrint() const;
-  void Ancestors(ItemType value) const;
-  TreeType MakeTree(ItemType[] arry);
-  TreeType MirrorImage();
+  void Print() const;
+  //void PrintTree(TreeNode<ItemType>* tree) const;
+  void PreOrderPrint(ofstream& outFile) const;
+  void InOrderPrint(ofstream& outFile) const;
+  void PostOrderPrint(ofstream& outFile) const;
+  void Ancestors(ItemType value);
+  TreeType<ItemType> MakeTree(ItemType arry[]);
+  TreeType<ItemType> MirrorImage();
  private:
   ItemType PtrToSuccessor(ItemType*& tree);
   TreeNode<ItemType>* root;

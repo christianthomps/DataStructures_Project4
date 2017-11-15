@@ -2,6 +2,7 @@
 #include <new>                     // For bad_alloc
 #include "QueType.h"
 
+template <class ItemType>
 struct NodeType
 {
   ItemType info;

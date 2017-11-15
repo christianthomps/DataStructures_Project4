@@ -26,8 +26,8 @@ int main()
   inFile.open("input.txt");
   outFile.open("output.txt");
 
-  QueType<int> que();
-  TreeType<int> tree();
+  QueType<int> que;
+  TreeType<int> tree;
 
   while(true){
 
@@ -63,7 +63,7 @@ int main()
 
     else if(command == "GetItem"){
       inFile >> tempItem;
-      outFile << GetItem(tempItem, found) << endl;
+      outFile << tree.GetItem(tempItem, found) << endl;
     }
 
     else if(command == "PutItem"){
@@ -79,7 +79,7 @@ int main()
     }
 
     else if(command == "PrintTree"){
-      PrintTree(tree);
+      tree.Print();
     }
 
     else if(command == "ResetTree"){
@@ -99,15 +99,15 @@ int main()
     }
 
     else if(command == "InOrderPrint"){
-      tree.InOrderPrint();
+      tree.InOrderPrint(outFile);
     }
 
     else if(command == "PreOrderPrint"){
-      tree.PreOrderPrint();
+      tree.PreOrderPrint(outFile);
     }
 
     else if(command == "PostOrderPrint"){
-      tree.PostOrderPrint();
+      tree.PostOrderPrint(outFile);
     }
 
     else if(command == "Ancestors"){
@@ -121,5 +121,5 @@ int main()
 
   }//main while
 
-
+  return 0;
 }//main
