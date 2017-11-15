@@ -25,9 +25,9 @@ class TreeType
   void PreOrderPrint() const;
   void InOrderPrint() const;
   void PostOrderPrint() const;
-  void Ancestors() const;
+  void Ancestors(ItemType value) const;
   TreeType<ItemType> MakeTree(ItemType[] arry);
-
+  TreeType<ItemType> MirrorImage();
  private:
   ItemType PtrToSuccessor(ItemType*& tree);
   TreeNode* root;

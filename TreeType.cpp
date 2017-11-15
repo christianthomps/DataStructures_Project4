@@ -4,8 +4,8 @@ using namespace std;
 struct TreeNode
 {
   ItemType info;
-  TreeNode* left;
-  TreeNode* right;
+  TreeNode<ItemType>* left;
+  TreeNode<ItemType>* right;
 };
 
 template <class ItemType>
@@ -13,10 +13,10 @@ bool TreeType::IsFull() const
 // Returns true if there is no room for another item 
 //  on the free store; false otherwise.
 {
-  TreeNode* location;
+  TreeNode<ItemType>* location;
   try
     {
-      location = new TreeNode;
+      location = new TreeNode<ItemType>;
       delete location;
       return false;
     }
@@ -33,10 +33,10 @@ bool TreeType::IsEmpty() const
   return root == NULL;
 }
 
-int CountNodes(TreeNode* tree);
+int CountNodes(TreeNode<ItemType>* tree);
 
 template <class ItemType>
-int CountNodes(TreeNode* tree);
+int CountNodes(TreeNode<ItemType>* tree);
 
 template <class ItemType>
 int TreeType::GetLength() const
@@ -47,7 +47,7 @@ int TreeType::GetLength() const
 }
 
 template <class ItemType>
-int CountNodes(TreeNode* tree)
+int CountNodes(TreeNode<ItemType>* tree)
 // Post: returns the number of nodes in the tree.
 {
   if (tree == NULL)
@@ -57,7 +57,7 @@ int CountNodes(TreeNode* tree)
 }
 
 template <class ItemType>
-void Retrieve(TreeNode* tree, 
+void Retrieve(TreeNode<ItemType>* tree, 
 	      ItemType& item, bool& found);
 
 ItemType TreeType::GetItem(ItemType item, bool& found)
@@ -68,7 +68,7 @@ ItemType TreeType::GetItem(ItemType item, bool& found)
 }
 
 template <class ItemType>
-void Retrieve(TreeNode* tree, 
+void Retrieve(TreeNode<ItemType>* tree, 
 	      ItemType& item, bool& found)
 // Recursively searches tree for item.
 // Post: If there is an element someItem whose key matches item's,
@@ -89,7 +89,7 @@ void Retrieve(TreeNode* tree,
 } 
 
 template <class ItemType>
-void Insert(TreeNode*& tree, ItemType item);
+void Insert(TreeNode<ItemType>*& tree, ItemType item);
 
 template <class ItemType>
 void TreeType::PutItem(ItemType item)
@@ -99,13 +99,13 @@ void TreeType::PutItem(ItemType item)
 }
 
 template <class ItemType>
-void Insert(TreeNode*& tree, ItemType item)
+void Insert(TreeNode<ItemType>*& tree, ItemType item)
 // Inserts item into tree.
 // Post:  item is in tree; search property is maintained.
 {
   if (tree == NULL)
     {// Insertion place found.
-      tree = new TreeNode;
+      tree = new TreeNode<ItemType>;
       tree->right = NULL;
       tree->left = NULL;
       tree->info = item;
@@ -118,7 +118,7 @@ void Insert(TreeNode*& tree, ItemType item)
 
 
 template <class ItemType>
-void DeleteNode(TreeNode*& tree);
+void DeleteNode(TreeNode<ItemType>*& tree);
 
 template <class ItemType>
 void TreeType::DeleteItem(ItemType item)
@@ -133,7 +133,7 @@ void TreeType::DeleteItem(ItemType item)
 }
 
 template <class ItemType>
-void Delete(TreeNode*& tree, ItemType item)
+void Delete(TreeNode<ItemType>*& tree, ItemType item)
 // Deletes item from tree.
 // Post:  item is not in tree.
 {
@@ -146,7 +146,7 @@ void Delete(TreeNode*& tree, ItemType item)
 }   
 
 template <class ItemType>
-void GetPredecessor(TreeNode* tree, ItemType& data);
+void GetPredecessor(TreeNode<ItemType>* tree, ItemType& data);
 
 template <class ItemType>
 TreeNode<ItemType>* PtrToSuccessor(TreeNode<ItemType>*& tree);
@@ -183,7 +183,7 @@ void DeleteNode(TreeNode<ItemType>*& tree)
 }
 
 template <class ItemType>
-void GetPredecessor(TreeNode* tree, ItemType& data)
+void GetPredecessor(TreeNode<ItemType>* tree, ItemType& data)
 // Sets data to the info member of the right-most node in tree.
 {
   while (tree->right != NULL)
@@ -200,7 +200,7 @@ TreeNode<ItemType>* PtrToSuccessor(TreeNode<ItemType> *& tree){
 }
 
 template <class ItemType>
-void PrintTree(TreeNode* tree) 
+void PrintTree(TreeNode<ItemType>* tree) 
 // Prints info member of items in tree in sorted order on screen.
 {
   if (tree != NULL)
@@ -224,7 +224,7 @@ TreeType::TreeType()
 }
 
 template <class ItemType>
-void Destroy(TreeNode*& tree);
+void Destroy(TreeNode<ItemType>*& tree);
 
 TreeType::~TreeType()
 // Calls recursive function Destroy to destroy the tree.
@@ -233,7 +233,7 @@ TreeType::~TreeType()
 }
 
 
-void Destroy(TreeNode*& tree)
+void Destroy(TreeNode<ItemType>*& tree)
 // Post: tree is empty; nodes have been deallocated.
 {
   if (tree != NULL)
@@ -252,8 +252,8 @@ void TreeType::MakeEmpty()
 }
 
 template <class ItemType>
-void CopyTree(TreeNode*& copy, 
-	      const TreeNode* originalTree);
+void CopyTree(TreeNode<ItemType>*& copy, 
+	      const TreeNode<ItemType>* originalTree);
 
 template <class ItemType>
 TreeType::TreeType(const TreeType& originalTree)
@@ -279,8 +279,8 @@ void TreeType::operator=
 }
 
 template <class ItemType>
-void CopyTree(TreeNode*& copy, 
-	      const TreeNode* originalTree)
+void CopyTree(TreeNode<ItemType>*& copy, 
+	      const TreeNode<ItemType>* originalTree)
 // Post: copy is the root of a tree that is a duplicate 
 //       of originalTree.
 {
@@ -288,7 +288,7 @@ void CopyTree(TreeNode*& copy,
     copy = NULL;
   else
     {
-      copy = new TreeNode;
+      copy = new TreeNode<ItemType>;
       copy->info = originalTree->info;
       CopyTree(copy->left, originalTree->left);
       CopyTree(copy->right, originalTree->right);
@@ -297,15 +297,15 @@ void CopyTree(TreeNode*& copy,
 // Function prototypes for auxiliary functions.
 
 template <class ItemType>
-void PreOrder(TreeNode*, QueType&);
+void PreOrder(TreeNode<ItemType>*, QueType<ItemType>&);
 // Enqueues tree items in preorder.
 
 template <class ItemType>
-void InOrder(TreeNode*, QueType&);
+void InOrder(TreeNode<ItemType>*, QueType<ItemType>&);
 // Enqueues tree items in inorder.
 
 template <class ItemType>
-void PostOrder(TreeNode*, QueType&);
+void PostOrder(TreeNode<ItemType>*, QueType<ItemType>&);
 // Enqueues tree items in postorder.
 
 
@@ -330,8 +330,7 @@ void TreeType::ResetTree(OrderType order)
 
 
 template <class ItemType>
-void PreOrder(TreeNode* tree, 
-	      QueType& preQue)
+void PreOrder(TreeNode<ItemType>* tree, QueType<ItemType>& preQue)
 // Post: preQue contains the tree items in preorder.
 {
   if (tree != NULL)
@@ -343,8 +342,7 @@ void PreOrder(TreeNode* tree,
 }
 
 template <class ItemType>
-void InOrder(TreeNode* tree, 
-	     QueType& inQue)
+void InOrder(TreeNode<ItemType>* tree  QueType<ItemType>& inQue)
 // Post: inQue contains the tree items in inorder.
 {
   if (tree != NULL)
@@ -356,8 +354,7 @@ void InOrder(TreeNode* tree,
 }
 
 template <class ItemType>
-void PostOrder(TreeNode* tree, 
-	       QueType& postQue)
+void PostOrder(TreeNode<ItemType>* tree, QueType<ItemType>& postQue)
 // Post: postQue contains the tree items in postorder.
 {
   if (tree != NULL)
@@ -369,7 +366,7 @@ void PostOrder(TreeNode* tree,
 }
 
 template <class ItemType>
-void InOrderPrintHelp(TreeNode* tree, ofstream& outFile){
+void InOrderPrintHelp(TreeNode<ItemType>* tree, ofstream& outFile){
   if(tree != null){
     InOrderPrintHelp(tree->left);   // Print left subtree.
     outFile << tree->info;
@@ -377,8 +374,8 @@ void InOrderPrintHelp(TreeNode* tree, ofstream& outFile){
   }
 }
 
-template <class ItemTYpe>
-void PreOrderPrintHelp(TreeNode* tree, ofstream& outFile){
+template <class ItemType>
+void PreOrderPrintHelp(TreeNode<ItemType>* tree, ofstream& outFile){
   if(tree != NULL){
     outFile << tree->info;
     PostOrder(tree->left, postQue);
@@ -387,7 +384,7 @@ void PreOrderPrintHelp(TreeNode* tree, ofstream& outFile){
 }
 
 template <class ItemType>
-void PostOrderPrintHelp(TreeNode* tree, ofstream& outFile){
+void PostOrderPrintHelp(TreeNode<ItemType>* tree, ofstream& outFile){
   if(tree != NULL){
     PostOrder(tree->left, postQue);
     PostOrder(tree->right, postQue);
@@ -465,6 +462,8 @@ TreeNode<ItemType>* TreeType::MakeTreeHelp(int start, int end, ItemType[] arry)
     }
   return ptr;
 }
+
+TreeType<ItemType> TreeType<ItemType>::MirrorImage();
 
 template <class ItemType>
 ItemType TreeType::GetNextItem(OrderType order, bool& finished)
