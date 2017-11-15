@@ -1,0 +1,91 @@
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <cstring>
+#include "TreeType.h"
+#include "QueType.h"
+
+using namespace std;
+
+int main()
+{
+
+  string command;
+
+  ifstream inFile;
+  ofstream outFile;
+
+  inFile.open("input.txt");
+  outFile.open("output.txt");
+
+
+  while(true){
+
+    if(command == "Quit"){
+      break;
+    }
+
+    else if(command == "MakeEmpty"){
+
+    }
+
+    else if(command == "IsEmpty"){
+      
+    }
+
+    else if(command == "IsFull"){
+      
+    }
+
+    else if(command == "GetLength"){
+
+    }
+
+    else if(command == "GetItem"){
+
+    }
+
+    else if(command == "PutItem"){
+
+    }
+
+    else if(command == "DeleteItem"){
+
+    }
+
+    else if(command == "PrintTree"){
+
+    }
+
+    else if(command == "ResetTree"){
+
+    }
+
+    else if(command == "GetNextItem"){
+
+    }
+
+    else if(command == "LevelOrderPrint"){
+
+    }
+
+    else if(command == "InOrderPrint"){
+
+    }
+
+    else if(command == "PreOrderPrint"){
+
+    }
+
+    else if(command == "PostOrderPrint"){
+
+    }
+
+    else if(command == "Ancestors"){
+
+    }
+
+  }//main while
+
+
+}//main
