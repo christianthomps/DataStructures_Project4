@@ -1,12 +1,17 @@
+#ifndef TreeType_H
+#define TreeType_H
+
 #include <string>
 #include <fstream>
 #include <iostream>
+#include "QueType.cpp"
+#include "QueType.h"
 
 using namespace std;
 
 template <class ItemType>
 struct TreeNode;
-#include "QueType.h"
+
 enum OrderType {PRE_ORDER, IN_ORDER, POST_ORDER};
 
 template <class ItemType>
@@ -43,3 +48,4 @@ class TreeType
   QueType<ItemType> postQue;
 };
 
+#endif

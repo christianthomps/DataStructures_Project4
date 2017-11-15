@@ -3,13 +3,17 @@
 #include <string>
 #include <cstring>
 #include "TreeType.h"
-//#include "QueType.h"
+#include "TreeType.cpp"
+#include "QueType.h"
+#include "QueType.cpp"
 
 using namespace std;
 OrderType convert(string& str){
   if(str == "PRE_ORDER") return PRE_ORDER;
   else if(str == "IN_ORDER") return IN_ORDER;
   else if(str == "POST_ORDER") return POST_ORDER;
+  else
+    return IN_ORDER;
 }
 int main()
 {
@@ -26,8 +30,8 @@ int main()
   inFile.open("input.txt");
   outFile.open("output.txt");
 
-  QueType<int> que;
-  TreeType<int> tree;
+  QueType<char> que;
+  TreeType<char> tree;
 
   while(true){
 

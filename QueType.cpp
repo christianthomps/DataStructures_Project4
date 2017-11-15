@@ -1,3 +1,6 @@
+#ifndef QueType_CPP
+#define QueType_CPP
+
 #include <cstddef>                 // For NULL
 #include <new>                     // For bad_alloc
 #include "QueType.h"
@@ -137,3 +140,5 @@ QueType<ItemType>::QueType(const QueType<ItemType>& anotherQue)
       rear = ptr2;
     }    
 }
+
+#endif

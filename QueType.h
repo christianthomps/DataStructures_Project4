@@ -1,3 +1,6 @@
+#ifndef QueType_H
+#define QueType_H
+
 // Header file for Queue ADT. 
 #include <new>
 #include <cstddef>
@@ -49,3 +52,5 @@ class QueType
   NodeType<ItemType>* front;
   NodeType<ItemType>* rear;
 };
+
+#endif

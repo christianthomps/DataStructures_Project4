@@ -1,6 +1,11 @@
+#ifndef TreeType_CPP
+#define TreeType_CPP
+
 #include<iostream>
 using namespace std;
 #include "TreeType.h"
+#include "QueType.cpp"
+#include "QueType.h"
 
 template <class ItemType>
 struct TreeNode
@@ -164,7 +169,7 @@ void DeleteNode(TreeNode<ItemType>*& tree)
 //       deleted; otherwise, the user's data is replaced by its 
 //       logical predecessor and the predecessor's node is deleted.
 {
-  ItemType data;
+  ItemType data = tree->info;
   TreeNode<ItemType>* tempPtr;
 
   tempPtr = tree;
@@ -322,8 +327,8 @@ void Mirror(TreeNode<ItemType>*& mir,
     {
       mir = new TreeNode<ItemType>;
       mir->info = originalTree->info;
-      Mirror(copy->left, originalTree->right);
-      Mirror(copy->right, originalTree->left);
+      Mirror(mir->left, originalTree->right);
+      Mirror(mir->right, originalTree->left);
     }
 }
 
@@ -367,8 +372,8 @@ void PreOrder(TreeNode<ItemType>* tree, QueType<ItemType>& preQue)
   if (tree != NULL)
     {
       preQue.Enqueue(tree->info);
-      PreOrderPrint(tree->left, preQue);
-      PreOrderPrint(tree->right, preQue);
+      PreOrder(tree->left, preQue);
+      PreOrder(tree->right, preQue);
     }
 }
 
@@ -438,8 +443,6 @@ void TreeType<ItemType>::InOrderPrint(ofstream& outFile) const{
   InOrderPrintHelp(this->root, outFile);
 }
 
-
-
 template <class ItemType>
 void TreeType<ItemType>::Ancestors(ItemType value){
   TreeNode<ItemType>* ptr = root;
@@ -458,7 +461,7 @@ void TreeType<ItemType>::Ancestors(ItemType value){
 	{
 	  ptr = ptr->left;
 	}
-      if(ptr = NULL)
+      if(ptr == NULL)
 	{
 	  //fuck my shit up
 	}
@@ -468,7 +471,9 @@ void TreeType<ItemType>::Ancestors(ItemType value){
   cout << "Ancestors: ";
   while(!que.IsEmpty())
     {
-      cout << que.Dequeue();
+      ItemType temp;
+      que.Dequeue(temp);
+      cout << temp;
     }
     //Add case: not in tree
 }
@@ -521,6 +526,4 @@ ItemType TreeType<ItemType>::GetNextItem(OrderType order, bool& finished)
   return item;
 }
 
-
-
-
+#endif
