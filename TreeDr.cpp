@@ -3,15 +3,20 @@
 #include <string>
 #include <cstring>
 #include "TreeType.h"
-#include "QueType.h"
+//#include "QueType.h"
 
 using namespace std;
-
+OrderType convert(string& str){
+  if(str == "PRE_ORDER") return PRE_ORDER;
+  else if(str == "IN_ORDER") return IN_ORDER;
+  else if(str == "POST_ORDER") return POST_ORDER;
+}
 int main()
 {
 
   string command;
-  string sortType;
+  string sortString;
+  OrderType sortType;
   int tempItem;
   bool found;
 
@@ -21,7 +26,7 @@ int main()
   inFile.open("input.txt");
   outFile.open("output.txt");
 
-  QueType<ItemType> que;
+  QueType que;
   TreeType<ItemType> tree;
 
   while(true){
@@ -57,18 +62,18 @@ int main()
     }
 
     else if(command == "GetItem"){
-      cin >> tempItem;
-      outFile << GetItem(tree, tempItem, found) << endl;
+      inFile >> tempItem;
+      outFile << GetItem(tempItem, found) << endl;
     }
 
     else if(command == "PutItem"){
-      cin >> tempItem;
+      inFile >> tempItem;
       tree.PutItem(tempItem);
       outFile << "Put " << tempItem << " into the tree." << endl;
     }
 
     else if(command == "DeleteItem"){
-      cin >> tempItem;
+      inFile >> tempItem;
       tree.DeleteItem(tempItem);
       outFile << "Deleted " << tempItem << " from the tree." << endl;
     }
@@ -78,12 +83,14 @@ int main()
     }
 
     else if(command == "ResetTree"){
-      cin >> sortType;
+      inFile >> sortString;
+      sortType = convert(sortString);
       tree.ResetTree(sortType);
     }
 
     else if(command == "GetNextItem"){
-      cin << sortType;
+      inFile >> sortString;
+      sortType = convert(sortString);
       outFile << tree.GetNextItem(sortType, found) << endl;
     }
 
@@ -92,20 +99,20 @@ int main()
     }
 
     else if(command == "InOrderPrint"){
-      outFile << tree.InOrderPrint() << endl;
+      tree.InOrderPrint();
     }
 
     else if(command == "PreOrderPrint"){
-      outFile << tree.PreOrderPrint() << endl;
+      tree.PreOrderPrint();
     }
 
     else if(command == "PostOrderPrint"){
-      outFile << tree.PostOrderPrint() << endl;
+      tree.PostOrderPrint();
     }
 
     else if(command == "Ancestors"){
-      cin << tempItem;
-      outFile << tree.Ancestors(tempItem) << endl;
+      inFile >> tempItem;
+      tree.Ancestors(tempItem);
     }
 
     else if(command == "MakeTree"){

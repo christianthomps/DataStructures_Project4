@@ -24,13 +24,13 @@ class TreeType
   void DeleteItem(ItemType item);
   void ResetTree(OrderType order); 
   ItemType GetNextItem(OrderType order, bool& finished);
-  void PrintTree() const;
+  void PrintTree(TreeNode<ItemType>* tree) const;
   void PreOrderPrint() const;
   void InOrderPrint() const;
   void PostOrderPrint() const;
   void Ancestors(ItemType value) const;
-  TreeType<ItemType> MakeTree(ItemType[] arry);
-  TreeType<ItemType> MirrorImage();
+  TreeType MakeTree(ItemType[] arry);
+  TreeType MirrorImage();
  private:
   ItemType PtrToSuccessor(ItemType*& tree);
   TreeNode<ItemType>* root;
