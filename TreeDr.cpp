@@ -2,11 +2,12 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <sstream>
 #include "TreeType.h"
 #include "TreeType.cpp"
 #include "QueType.h"
 #include "QueType.cpp"
-
+//
 using namespace std;
 OrderType convert(string& str){
   if(str == "PRE_ORDER") return PRE_ORDER;
@@ -18,10 +19,11 @@ OrderType convert(string& str){
 int main()
 {
 
+  string line;
   string command;
   string sortString;
   OrderType sortType;
-  int tempItem;
+  char tempItem;
   bool found;
 
   ifstream inFile;
@@ -33,7 +35,9 @@ int main()
   QueType<char> que;
   TreeType<char> tree;
 
-  while(true){
+  while(getline(inFile, line)){
+    stringstream ss(line);
+    ss >> command;
 
     if(command == "Quit"){
       break;
@@ -41,6 +45,8 @@ int main()
 
     else if(command == "MakeEmpty"){
       tree.MakeEmpty();
+      outFile << endl;
+
     }
 
     else if(command == "IsEmpty"){
@@ -66,62 +72,95 @@ int main()
     }
 
     else if(command == "GetItem"){
-      inFile >> tempItem;
+      ss >> tempItem;
       outFile << tree.GetItem(tempItem, found) << endl;
     }
 
     else if(command == "PutItem"){
-      inFile >> tempItem;
+      ss >> tempItem;
       tree.PutItem(tempItem);
       outFile << "Put " << tempItem << " into the tree." << endl;
     }
 
     else if(command == "DeleteItem"){
-      inFile >> tempItem;
+      ss >> tempItem;
       tree.DeleteItem(tempItem);
       outFile << "Deleted " << tempItem << " from the tree." << endl;
     }
 
     else if(command == "PrintTree"){
-      tree.Print();
+      tree.Print(outFile);
+      outFile << endl;
+
     }
 
     else if(command == "ResetTree"){
-      inFile >> sortString;
+      ss >> sortString;
       sortType = convert(sortString);
       tree.ResetTree(sortType);
+      outFile << endl;
+
     }
 
     else if(command == "GetNextItem"){
-      inFile >> sortString;
+      ss >> sortString;
       sortType = convert(sortString);
       outFile << tree.GetNextItem(sortType, found) << endl;
     }
 
     else if(command == "LevelOrderPrint"){
-      
+      tree.LevelOrderPrint(outFile);
+      outFile << endl;
     }
 
     else if(command == "InOrderPrint"){
       tree.InOrderPrint(outFile);
+      outFile << endl;
+
     }
 
     else if(command == "PreOrderPrint"){
       tree.PreOrderPrint(outFile);
+      outFile << endl;
+
     }
 
     else if(command == "PostOrderPrint"){
       tree.PostOrderPrint(outFile);
+      outFile << endl;
+
     }
 
     else if(command == "Ancestors"){
-      inFile >> tempItem;
-      tree.Ancestors(tempItem);
+      ss >> tempItem;
+      tree.Ancestors(tempItem, outFile);
+      outFile << endl;
+
     }
 
     else if(command == "MakeTree"){
-      
+      int count = 0;
+      char a[100];
+      while(ss >> tempItem)
+	{
+	  a[count] = tempItem;
+	  count++;
+	}
+      tree.MakeTree(a, count);
+      outFile << endl;
+
     }
+
+    else if(command == "MirrorImage")
+      {
+	tree = tree.MirrorImage();
+	outFile << endl;
+      }
+
+    else
+      {
+	outFile << "Command not recognized." << endl;
+      }
 
   }//main while
 

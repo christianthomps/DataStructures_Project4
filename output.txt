@@ -1,0 +1,186 @@
+The tree is empty
+Put P into the tree.
+Put F into the tree.
+Put S into the tree.
+F  P  S  
+Put B into the tree.
+Put H into the tree.
+Put G into the tree.
+Put R into the tree.
+Put Y into the tree.
+Put T into the tree.
+Put Z into the tree.
+Put W into the tree.
+-------------------
+P 
+F S 
+B H R Y 
+G T Z 
+W 
+
+-------------------
+PFBHGSRYTWZ
+BGHFRWTZYSP
+The tree is not full
+The tree is not empty
+P
+G
+T
+A
+N
+B  F  G  H  P  R  S  T  W  Y  Z  
+
+B
+F
+G
+H
+P
+R
+S
+T
+W
+Y
+Z
+B  F  G  H  P  R  S  T  W  Y  Z  
+
+B
+G
+H
+F
+R
+W
+T
+Z
+Y
+S
+P
+B  F  G  H  P  R  S  T  W  Y  Z  
+
+P
+F
+B
+H
+G
+S
+R
+Y
+T
+W
+Z
+B  F  G  H  P  R  S  T  W  Y  Z  
+11
+The tree is not empty
+-------------------
+P 
+F S 
+B H R Y 
+G T Z 
+W 
+
+-------------------
+Deleted W from the tree.
+-------------------
+P 
+F S 
+B H R Y 
+G T Z 
+
+-------------------
+Deleted Z from the tree.
+-------------------
+P 
+F S 
+B H R Y 
+G T 
+
+-------------------
+Deleted S from the tree.
+-------------------
+P 
+F T 
+B H R Y 
+G 
+
+-------------------
+Deleted P from the tree.
+-------------------
+R 
+F T 
+B H Y 
+G 
+
+-------------------
+Deleted F from the tree.
+-------------------
+R 
+G T 
+B H Y 
+
+-------------------
+Deleted B from the tree.
+-------------------
+R 
+G T 
+H Y 
+
+-------------------
+RGHTY
+Deleted H from the tree.
+-------------------
+R 
+G T 
+Y 
+
+-------------------
+Deleted G from the tree.
+-------------------
+R 
+T 
+Y 
+
+-------------------
+Deleted R from the tree.
+-------------------
+T 
+Y 
+
+-------------------
+Deleted T from the tree.
+-------------------
+Y 
+
+-------------------
+Deleted Y from the tree.
+-------------------
+
+-------------------
+The tree is empty
+Put A into the tree.
+Put B into the tree.
+A  B  
+-------------------
+A 
+B 
+
+-------------------
+
+The tree is empty
+
+A  B  C  
+-------------------
+B 
+A C 
+
+-------------------
+
+-------------------
+B 
+C A 
+
+-------------------
+C  B  A  
+BCA
+CAB
+
+
+Command not recognized.

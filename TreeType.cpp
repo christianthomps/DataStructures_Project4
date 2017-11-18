@@ -11,8 +11,8 @@ template <class ItemType>
 struct TreeNode
 {
   ItemType info;
-  TreeNode<ItemType>* left;
-  TreeNode<ItemType>* right;
+  TreeNode<ItemType>* left = NULL;
+  TreeNode<ItemType>* right = NULL;
 };
 
 template <class ItemType>
@@ -169,7 +169,6 @@ void DeleteNode(TreeNode<ItemType>*& tree)
 //       deleted; otherwise, the user's data is replaced by its 
 //       logical predecessor and the predecessor's node is deleted.
 {
-  ItemType data = tree->info;
   TreeNode<ItemType>* tempPtr;
 
   tempPtr = tree;
@@ -186,8 +185,10 @@ void DeleteNode(TreeNode<ItemType>*& tree)
   else
     {
       //GetPredecessor(tree->left, data);
-      tree->info = data;
-      Delete(tree->left, data);  // Delete predecessor node.
+      TreeNode<ItemType>* successor = PtrToSuccessor(tree);
+      ItemType temp = successor->info;
+      Delete(tree, successor->info);  // Delete predecessor node.
+      tree->info = temp;
     }
 }
 
@@ -196,35 +197,37 @@ void GetPredecessor(TreeNode<ItemType>* tree, ItemType& data)
 // Sets data to the info member of the right-most node in tree.
 {
   while (tree->right != NULL)
-    tree = tree->right;
+    {
+      tree = tree->right;
+    }
   data = tree->info;
 }
 
 template <class ItemType>
 TreeNode<ItemType>* PtrToSuccessor(TreeNode<ItemType> *& tree){
-  TreeNode<ItemType> ptr = tree;
+  TreeNode<ItemType>* ptr = tree->right;
   while(ptr->left != NULL)
     ptr = ptr->left;
   return ptr;
 }
 
 template <class ItemType>
-void PrintTree(TreeNode<ItemType>* tree) 
+void PrintTree(TreeNode<ItemType>* tree, ofstream& outfile) 
 // Prints info member of items in tree in sorted order on screen.
 {
   if (tree != NULL)
     {
-      PrintTree(tree->left);   // Print left subtree.
-      cout << tree->info<<"  ";
-      PrintTree(tree->right);  // Print right subtree.
+      PrintTree(tree->left, outfile);   // Print left subtree.
+      outfile << tree->info<<"  ";
+      PrintTree(tree->right, outfile);  // Print right subtree.
     }
 }
 
 template <class ItemType>
-void TreeType<ItemType>::Print() const
+void TreeType<ItemType>::Print(ofstream& outfile) const
 // Calls recursive function Print to print items in the tree.
 {
-  PrintTree(root);
+  PrintTree(root, outfile);
 }
 
 template <class ItemType>
@@ -308,11 +311,28 @@ void CopyTree(TreeNode<ItemType>*& copy,
 // Function prototypes for auxiliary functions.
 
 template <class ItemType>
+TreeNode<ItemType>* TreeType<ItemType>::GetRoot()
+{
+  return root;
+}
+
+template <class ItemType>
+void TreeType<ItemType>::SetRoot(TreeNode<ItemType>* node)
+{
+  root = new TreeNode<ItemType>;
+  root->info = node->info;
+  root->left = node->left;
+  root->right = node->right;
+}
+
+template <class ItemType>
 TreeType<ItemType> TreeType<ItemType>::MirrorImage()
 {
-  TreeType<ItemType> m = new TreeType;
-  Mirror(m, this);
-  return m;
+  TreeType<ItemType>* mirror = new TreeType<ItemType>;
+  TreeNode<ItemType>* mirrorRoot;
+  Mirror(mirrorRoot, root);
+  mirror->SetRoot(mirrorRoot);
+  return *mirror;
 }
 
 template <class ItemType>
@@ -414,8 +434,8 @@ template <class ItemType>
 void PreOrderPrintHelp(TreeNode<ItemType>* tree, ofstream& outFile){
   if(tree != NULL){
     outFile << tree->info;
-    PostOrderPrintHelp(tree->left, outFile);
-    PostOrderPrintHelp(tree->right, outFile);
+    PreOrderPrintHelp(tree->left, outFile);
+    PreOrderPrintHelp(tree->right, outFile);
   }
 }
 
@@ -444,13 +464,19 @@ void TreeType<ItemType>::InOrderPrint(ofstream& outFile) const{
 }
 
 template <class ItemType>
-void TreeType<ItemType>::Ancestors(ItemType value){
+void TreeType<ItemType>::Ancestors(ItemType value, ofstream& outfile){
   TreeNode<ItemType>* ptr = root;
   QueType<ItemType> que;
+  bool intree = true;
 
-  //Case:IN Tree
   while(ptr->info != value)
     {
+      if(ptr == NULL)
+	{
+	  intree = false;
+	  break;
+	}
+
       que.Enqueue(ptr->info);
       
       if(value > ptr->info)
@@ -461,28 +487,32 @@ void TreeType<ItemType>::Ancestors(ItemType value){
 	{
 	  ptr = ptr->left;
 	}
-      if(ptr == NULL)
+    }
+ 
+  if(intree)
+    {
+      outfile << "Ancestors: ";
+      while(!que.IsEmpty())
 	{
-	  //fuck my shit up
+	  ItemType temp;
+	  que.Dequeue(temp);
+	  outfile << temp << " ";
 	}
     }
-  //haven't implemented
-  //que.print();
-  cout << "Ancestors: ";
-  while(!que.IsEmpty())
+  else
     {
-      ItemType temp;
-      que.Dequeue(temp);
-      cout << temp;
+      outfile << "Requested value is not in the tree";
     }
-    //Add case: not in tree
 }
 
 template <class ItemType>
-TreeType<ItemType> TreeType<ItemType>::MakeTree(ItemType arry[])
+TreeNode<ItemType>* MakeTreeHelp(int start, int end, ItemType arry[]);
+
+template <class ItemType>
+void TreeType<ItemType>::MakeTree(ItemType arry[], int length)
 {
-  int length = sizeof(arry);
-  MakeTreeHelp(0, length, arry);
+  this->MakeEmpty();
+  root = MakeTreeHelp(0, length-1, arry);
 }
 
 template <class ItemType>
@@ -490,11 +520,15 @@ TreeNode<ItemType>* MakeTreeHelp(int start, int end, ItemType arry[])
 {
   int mid = (start + end)/2;
   TreeNode<ItemType>* ptr = new TreeNode<ItemType>;
-  ptr->info = arry[mid];
-  if(start < end)
+  if(start <= end)
     {
+      ptr->info = arry[mid];
       ptr->left = MakeTreeHelp(start, mid-1, arry);
       ptr->right = MakeTreeHelp(mid+1, end, arry);
+    }
+  else
+    {
+      ptr = NULL;
     }
   return ptr;
 }
@@ -524,6 +558,36 @@ ItemType TreeType<ItemType>::GetNextItem(OrderType order, bool& finished)
       break;
     }
   return item;
+}
+
+template <class ItemType>
+void TreeType<ItemType>::LevelOrderPrint(ofstream& outfile)
+{
+  outfile << "-------------------" << endl;
+  QueType<TreeNode<ItemType>*> thisLevel, nextLevel;
+  thisLevel.Enqueue(root);
+  while(!thisLevel.IsEmpty())
+    {
+      TreeNode<ItemType>* thisNode;
+      thisLevel.Dequeue(thisNode);
+      if(thisNode!=NULL)
+	{
+	  outfile << thisNode->info << " ";
+	  nextLevel.Enqueue(thisNode->left);
+	  nextLevel.Enqueue(thisNode->right);
+	}
+      if(thisLevel.IsEmpty())
+	{
+	  outfile << endl;
+	  while(!nextLevel.IsEmpty())
+	    {
+	      TreeNode<ItemType>* temp;
+	      nextLevel.Dequeue(temp);
+	      thisLevel.Enqueue(temp);
+	    }
+	}
+    }
+  outfile << "-------------------";
 }
 
 #endif

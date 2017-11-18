@@ -27,19 +27,22 @@ class TreeType
   bool IsEmpty() const;
   bool IsFull() const;
   int GetLength() const; 
+  TreeNode<ItemType>* GetRoot();
+  void SetRoot(TreeNode<ItemType>* node);
   ItemType GetItem(ItemType item, bool& found);
   void PutItem(ItemType item);
   void DeleteItem(ItemType item);
   void ResetTree(OrderType order); 
   ItemType GetNextItem(OrderType order, bool& finished);
-  void Print() const;
+  void Print(ofstream& outfile) const;
   //void PrintTree(TreeNode<ItemType>* tree) const;
   void PreOrderPrint(ofstream& outFile) const;
   void InOrderPrint(ofstream& outFile) const;
   void PostOrderPrint(ofstream& outFile) const;
-  void Ancestors(ItemType value);
-  TreeType<ItemType> MakeTree(ItemType arry[]);
+  void Ancestors(ItemType value, ofstream& outfile);
+  void MakeTree(ItemType arry[], int length);
   TreeType<ItemType> MirrorImage();
+  void LevelOrderPrint(ofstream& outfile);
  private:
   ItemType PtrToSuccessor(ItemType*& tree);
   TreeNode<ItemType>* root;

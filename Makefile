@@ -14,8 +14,8 @@ TreeType.o: TreeType.cpp TreeType.h
 TreeDr.o: TreeDr.cpp
 	g++ $(FLAGS) -c TreeDr.cpp
 
-run: TreeType
-	./TreeType
+run: TreeDr
+	./TreeDr
 
 clean:
 	rm -f *.o

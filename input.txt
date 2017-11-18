@@ -63,17 +63,30 @@ GetNextItem PRE_ORDER
 PrintTree
 GetLength
 IsEmpty
+LevelOrderPrint
 DeleteItem W
+LevelOrderPrint
 DeleteItem Z
+LevelOrderPrint
 DeleteItem S
+LevelOrderPrint
 DeleteItem P
+LevelOrderPrint
 DeleteItem F
+LevelOrderPrint
 DeleteItem B
+LevelOrderPrint
+PreOrderPrint
 DeleteItem H
+LevelOrderPrint
 DeleteItem G
+LevelOrderPrint
 DeleteItem R
+LevelOrderPrint
 DeleteItem T
+LevelOrderPrint
 DeleteItem Y
+LevelOrderPrint
 IsEmpty
 PutItem A
 PutItem B
@@ -81,9 +94,14 @@ PrintTree
 LevelOrderPrint
 MakeEmpty
 IsEmpty
-MakeTree 10 20 30 40 50 60 70 80 90 100
+MakeTree A B C
+PrintTree
 LevelOrderPrint
 MirrorImage
+LevelOrderPrint
+PrintTree
+PreOrderPrint
+PostOrderPrint
 MakeEmpty
 PrintTree
 Error
